@@ -51,11 +51,10 @@ FROM nginx:stable-alpine
 # Копируем собранные статические файлы из предыдущего этапа
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Копируем кастомный конфиг NGINX
+# Используем пользовательскую конфигурацию NGINX
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 
-# Порт, на котором будет работать NGINX
-EXPOSE 8000
+# Убедитесь, что Railway подхватит порт 8000
+ENV PORT=8000
 
-# Запуск NGINX
 CMD ["nginx", "-g", "daemon off;"]
